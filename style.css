@@ -1,0 +1,13 @@
+body {
+    font-family: "segoe ui light", arial, sans-serif;
+}
+
+#weatherIcon {
+    height: 100px;
+    width: 100px;
+}
+
+#messageDisplay {
+    font-size: 36pt;
+
+}
