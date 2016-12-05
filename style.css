@@ -2,12 +2,26 @@ body {
     font-family: "segoe ui light", arial, sans-serif;
 }
 
-#weatherIcon {
-    height: 100px;
-    width: 100px;
+.btn-primary {
+    font-size: x-large;
 }
 
-#messageDisplay {
+.container {
+    text-align: center;
+}
+
+#weatherIcon {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+}
+
+#temperature {
     font-size: 36pt;
 
+}
+
+.page-header {
+    text-align: center;
+    font-size: large;
 }

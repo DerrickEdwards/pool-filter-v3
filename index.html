@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Pool Control</title>
+    <title>Pool Control v3</title>
 
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -31,19 +31,24 @@
 <div class="container"> 
 
     <div class="page-header">
-        <h1>hello world from our express delivered, bootstrap 3 html page</h1>
-    </div>      
+        <h2>Kinni Cottage Pool Filter</h2>
+    </div>
 
-    <p id="messageDisplay">text will appear here</p>
+    <h1 id="filterStatus">Off</h1>
+
+    <button type=button class="btn btn-primary" onclick="toggleFiliter()">Turn On</button>
+
+    <hr/>
+    <h3>Air Temperature</h3>
+    <div id="temperature"></div>
     <div id="weatherIcon"></div>
 
-    <button type=button class="btn btn-primary" onclick="getCurrentWeather()">Click Me</button>
+</div> <!-- end container -->
 
+<script>
+    filterPower();
+    currentWeather();
+</script>
 
-
-
-
-
-</div>
 </body>
 </html>
