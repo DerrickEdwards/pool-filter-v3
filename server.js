@@ -3,7 +3,7 @@ var app     = express();
 var path    = require( "path" );
 
 var Gpio = require( "onoff" ).Gpio; // https://www.npmjs.com/package/onoff
-var led = new Gpio( 12,'low');
+var gpioPin = new Gpio( 12,'low');
 
 
 // This is only serving static pages
@@ -31,35 +31,36 @@ app.get( "/", function(req,res){ res.sendFile( path.join( __dirname, "index.html
 app.get( "/style.css", function(req,res){ res.sendFile( path.join( __dirname, "style.css" ) ) })
 app.get( "/script.js", function(req,res){ res.sendFile( path.join( __dirname, "script.js" ) ) })
 
-app.get('/ledToggle', ledToggle );
-app.get('/ledOn', ledOn );
-app.get('/ledOff', ledOff );
+app.get(' gpioPinToggle', gpioPinToggle );
+app.get(' gpioPinOn', gpioPinOn );
+app.get(' gpioPinOff', gpioPinOff );
 
 app.listen( 80, console.log( "[ Express Server ] Listening on port 80" ));
 
 
 
 // ===========================================================
-function ledToggle( req, res ){
+function gpioPinToggle( req, res ){
     res.sendStatus(200);
-    console.log( "toggleLed() called");
-    if ( led.readSync() === 1 ){
-        led.writeSync(0); 
+    console.log( "toggl gpioPin() ca gpioPin");
+    if ( gpioPin.readSync() === 1 ){
+     gpioPin.writeSync(0); 
     } else {
-        led.writeSync(1);
+     gpioPin.writeSync(1);
     }
-}; // end toggleLed()
+}; // end toggl gpioPin()
 
 // ===========================================================
-function ledOn( req, res ){
+function gpioPinOn( req, res ){
     res.sendStatus(200);
-    console.log( "ledOn() called");
-    led.writeSync(1);
-}; // end toggleLed()
+    console.log(  gpioPinOn() ca gpioPin");
+ gpioPin.writeSync(1);
+}; // end toggl gpioPin()
+
 
 // ===========================================================
-function ledOff( req, res ){
+function gpioPinOff( req, res ){
     res.sendStatus(200);
-    console.log( "ledOff() called");
-    led.writeSync(0);
-}; // end toggleLed()
+    console.log(  gpioPinOff() ca gpioPin");
+ gpioPin.writeSync(0);
+}; // end toggl gpioPin()
