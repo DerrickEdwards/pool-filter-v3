@@ -1,9 +1,12 @@
 var express = require( "express" );
 var app     = express();
+
 var path    = require( "path" );
 
-var Gpio = require( "onoff" ).Gpio; // https://www.npmjs.com/package/onoff
-var gpioPin = new Gpio( 12,'low');
+var Gpio    = require( "onoff" ).Gpio; // https://www.npmjs.com/package/onoff
+var gpioPin = new Gpio( 12, 'low');
+
+var PORT    = 8080;   //  NOTE: sometimes using port 80 crashes the server.
 
 
 // This is only serving static pages
@@ -31,36 +34,56 @@ app.get( "/", function(req,res){ res.sendFile( path.join( __dirname, "index.html
 app.get( "/style.css", function(req,res){ res.sendFile( path.join( __dirname, "style.css" ) ) })
 app.get( "/script.js", function(req,res){ res.sendFile( path.join( __dirname, "script.js" ) ) })
 
-app.get(' gpioPinToggle', gpioPinToggle );
-app.get(' gpioPinOn', gpioPinOn );
-app.get(' gpioPinOff', gpioPinOff );
+// This is the server's API'
+app.get( '/gpioPinValue',    gpioPinValue );
+app.get( '/gpioPinToggle',   gpioPinToggle );
+app.get( '/gpioPinOn',       gpioPinOn );
+app.get( '/gpioPinOff',      gpioPinOff );
 
-app.listen( 80, console.log( "[ Express Server ] Listening on port 80" ));
+
+app.listen( PORT, console.log( `[ Express Server ] Listening on port ${PORT}` ));
 
 
 
 // ===========================================================
+function gpioPinValue( req, res ){
+
+    console.log( "gpioPin() called");
+
+    // this section breaks if you return a numeric value, e.g., 1 or 0 instead of "1" or "0"
+    // this may have to do with the default header value for return type
+
+    // this could be improved by returning JSON data instead.
+    if ( gpioPin.readSync() === 1 ){
+        res.send( "1" ); 
+    } else {
+        res.send( "0" );
+    };
+
+}; // end gpioPinValue()
+
+// ===========================================================
 function gpioPinToggle( req, res ){
     res.sendStatus(200);
-    console.log( "toggl gpioPin() ca gpioPin");
+    console.log( "gpioPinToggle() called" );
     if ( gpioPin.readSync() === 1 ){
      gpioPin.writeSync(0); 
     } else {
      gpioPin.writeSync(1);
     }
-}; // end toggl gpioPin()
+}; // end gpioPinToggle()
 
 // ===========================================================
 function gpioPinOn( req, res ){
     res.sendStatus(200);
-    console.log(  gpioPinOn() ca gpioPin");
- gpioPin.writeSync(1);
-}; // end toggl gpioPin()
+    console.log( "gpioPinOn() called" );
+    gpioPin.writeSync(1);
+}; // end gpioPinOn()
 
 
 // ===========================================================
 function gpioPinOff( req, res ){
     res.sendStatus(200);
-    console.log(  gpioPinOff() ca gpioPin");
- gpioPin.writeSync(0);
-}; // end toggl gpioPin()
+    console.log( "gpioPinOff() called" );
+    gpioPin.writeSync(0);
+}; // end gpioPinOff()

@@ -1,15 +1,36 @@
 // =============================================================================
+// call the server to get the current power status and set the display
+//      and the button label accordingly.
+
 function filterPower(){
 
+    console.log( "filterPower() called");
+    $.get( "/gpioPinValue", function( data ){
 
-} // end filterPowerStatus()
+        if ( data === "1" ){
+            $( "#filterPowerStatusDisplay" ).html( "On" );
+        } else {
+            $( "#filterPowerStatusDisplay" ).html( "Off" );
+        }
+        console.log( data );
+        return data;
+    });
+
+}; // end filterPowerStatus()
 
 
 // =============================================================================
-function toggleFilterPower(){
+function filterPowerToggle(){
+    // toggle the current power state
+    console.log( "toggleFilterPower() called");
+    $.get( "/gpioPinToggle", function( data ){
+        console.log( data );
+    });
 
-
-} // end filterPowerStatus()
+    // reread and display the current power state
+    filterPower();
+    
+}; // end filterPowerStatus()
 
 
 
